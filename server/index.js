@@ -6,7 +6,6 @@ const cors = require('cors');
 const blogRoutes = require('./routes/blogRoutes');
 const userRoutes = require('./routes/userRoutes');
 const cloudinary = require('./config/cloudinaryConfig');
-const path = require('path');
 
 // Load environment variables from .env file
 dotenv.config();
@@ -32,17 +31,6 @@ app.use(express.json());
 
 // Serve static files from the 'uploads' directory
 app.use('/uploads', express.static('uploads'));
-
-// Serve static files from the React build folder
-if (process.env.NODE_ENV === 'production') {
-    // Set static folder to React build folder
-    app.use(express.static(path.join(__dirname, 'client', 'build')));
-
-    // Handle all non-API routes by sending the React app's index.html
-    app.get('*', (req, res) => {
-        res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
-    });
-}
 
 // Define API routes
 app.use('/api/blogs', blogRoutes);
