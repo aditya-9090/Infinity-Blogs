@@ -1,0 +1,36 @@
+/* index.css */
+
+/* Tailwind Directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+/* Define light theme variables */
+:root {
+  --primary-bg: #ffffff; /* Light Background */
+  --primary-text: #333333; /* Light Text */
+  --accent-color: #3498db; /* Accent Color */
+  --header-bg: #007bff; /* Header Color */
+}
+
+/* Dark theme variables */
+.dark {
+  --primary-bg: #1a1a1a; /* Dark Background */
+  --primary-text: #f5f5f5; /* Light Text */
+  --accent-color: #1abc9c; /* Dark Accent */
+  --header-bg: #2c3e50; /* Dark Header */
+}
+
+/* Apply global styles using CSS variables */
+body {
+  background-color: var(--primary-bg);
+  color: var(--primary-text);
+}
+
+header {
+  background-color: var(--header-bg);
+}
+
+/* Customize other components as necessary */
