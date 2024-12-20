@@ -18,7 +18,7 @@ const app = express();
 
 // Middleware to enable CORS for all routes
 app.use(cors({
-    origin: 'http://localhost:5173', // Replace with your React app's URL
+    origin: ['*', 'http://localhost:5173'], // Allows any origin and localhost:5173
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
 }));
