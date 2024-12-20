@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { UserContext } from '../contexts/UserContext'; 
 import { toast } from 'react-toastify'; // Import toast 
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { Link } from 'react-router-dom'; // Import Link for routing
 import LoadingAnimation from '../components/LoadingAnimation'; // Import your LoadingAnimation component
 
 const Signup = () => { 
@@ -90,9 +91,9 @@ const Signup = () => {
 
         <p className="mt-4 text-center text-gray-600 dark:text-gray-400"> 
           Already have an account?{' '} 
-          <a href="/login" className="text-blue-600 hover:underline dark:text-blue-400"> 
+          <Link to="/login" className="text-blue-600 hover:underline dark:text-blue-400"> 
             Log In 
-          </a> 
+          </Link> 
         </p> 
       </div> 
     </div> 
