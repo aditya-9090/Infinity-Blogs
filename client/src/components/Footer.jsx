@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom"; // Import Link for navigation
 import whiteLogo from "../assets/whitelogo.png"; // Adjust the path as per your folder structure
 
 const Footer = () => {
@@ -13,20 +14,19 @@ const Footer = () => {
               <img src={whiteLogo} alt="Infinity Blogs Logo" className="h-12" />
               <h1 className="text-2xl font-semibold">Infinity Blogs</h1>
             </div>
-           
           </div>
 
           {/* Navigation Links */}
           <div className="flex flex-col items-center space-y-4">
-            <a href="/" className="hover:text-blue-400 transition-colors">
+            <Link to="/" className="hover:text-blue-400 transition-colors">
               Home
-            </a>
-            <a href="/about-us" className="hover:text-blue-400 transition-colors">
+            </Link>
+            <Link to="/about-us" className="hover:text-blue-400 transition-colors">
               About Us
-            </a>
-            <a href="/contact-us" className="hover:text-blue-400 transition-colors">
+            </Link>
+            <Link to="/contact-us" className="hover:text-blue-400 transition-colors">
               Contact Us
-            </a>
+            </Link>
           </div>
 
           {/* Copyright Section */}

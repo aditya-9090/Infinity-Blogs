@@ -30,7 +30,9 @@ const Signup = () => {
       setLoading(false);
       return;
     }
-    if (!/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/.test(email)) {
+    // Updated email validation regex
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(email)) {
       setError('Please enter a valid email address');
       setLoading(false);
       return;
@@ -45,7 +47,7 @@ const Signup = () => {
       // Attempt signup
       await signup(username, email, password);
       toast.success('Signup successful!'); // Show success toast
-      navigate('/');
+      navigate('/'); // Navigate to the home page after successful signup
     } catch (error) {
       toast.error('Signup failed. Please try again.'); // Show error toast if signup fails
       console.error('Signup failed:', error);
