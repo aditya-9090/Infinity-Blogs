@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { UserContext } from '../contexts/UserContext';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { Link } from 'react-router-dom';  // Import Link for routing
+import { Link } from 'react-router-dom'; // Import Link for routing
 import LoadingAnimation from '../components/LoadingAnimation'; // Import your LoadingAnimation component
 
 const Login = () => {
@@ -10,11 +10,23 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false); // State to manage loading
+  const [emailError, setEmailError] = useState(''); // State for email validation error
   const navigate = useNavigate();
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Regex for validating email format
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true); // Set loading to true when submitting
+
+    // Email validation check
+    if (!emailRegex.test(email)) {
+      setEmailError('Please enter a valid email address');
+      setLoading(false); // Set loading to false when validation fails
+      return;
+    } else {
+      setEmailError(''); // Clear any previous email validation error
+    }
 
     try {
       // Attempt login
@@ -45,6 +57,7 @@ const Login = () => {
               required
               className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 transition-all duration-300"
             />
+            {emailError && <p className="text-red-500 text-sm">{emailError}</p>} {/* Display email validation error */}
           </div>
           <div className="mb-4">
             <input
