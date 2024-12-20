@@ -2,13 +2,24 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
-// Registration handler (no validation)
+// Function to validate email format
+const isValidEmail = (email) => {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,7}$/;
+    return emailRegex.test(email);
+};
+
+// Registration handler (with email validation)
 const register = async (req, res) => {
     try {
         const { username, email, password } = req.body;
 
+        // Validate email format
+        if (!isValidEmail(email)) {
+            return res.status(400).json({ message: 'Invalid email format' });
+        }
+
         // Check if the user already exists (either by email or username)
-        const existingEmail = await User.findOne({ email });
+        const existingEmail = await User.findOne({ email: { $regex: new RegExp('^' + email + '$', 'i') } });
         const existingUsername = await User.findOne({ username });
 
         if (existingEmail || existingUsername) {
@@ -35,13 +46,18 @@ const register = async (req, res) => {
     }
 };
 
-// Login handler (no validation)
+// Login handler (with email validation)
 const login = async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        // Check if the user exists by email
-        const user = await User.findOne({ email });
+        // Validate email format
+        if (!isValidEmail(email)) {
+            return res.status(400).json({ message: 'Invalid email format' });
+        }
+
+        // Check if the user exists by email (case-insensitive)
+        const user = await User.findOne({ email: { $regex: new RegExp('^' + email + '$', 'i') } });
         if (!user) {
             return res.status(401).json({ message: 'Invalid credentials' }); // If user is not found, return error
         }
