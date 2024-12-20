@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { BlogContext } from '../contexts/BlogContext';
 import BlogCard from '../components/BlogCard';
 import LoadingAnimation from '../components/LoadingAnimation'; // Import your loading animation component
@@ -6,13 +6,11 @@ import LoadingAnimation from '../components/LoadingAnimation'; // Import your lo
 const Home = () => {
     const { blogs, loading, error, filterBlogsByCategory, searchBlogs } = useContext(BlogContext);
     const [searchTerm, setSearchTerm] = useState('');
-    const [filteredBlogs, setFilteredBlogs] = useState(blogs);
 
     // Trigger a search when the user inputs a search term
     const handleSearch = () => {
-        searchBlogs(searchTerm.trim()).then(filteredResults => {
-            setFilteredBlogs(filteredResults); // Update the filtered blogs with search results
-        });
+        // Pass the searchTerm to the searchBlogs function, even if it's empty
+        searchBlogs(searchTerm.trim());
     };
 
     // Filter blogs by the selected category
@@ -33,9 +31,6 @@ const Home = () => {
     if (error) {
         return <div className="text-center p-4 text-red-500">An error occurred: {error}</div>;
     }
-
-    // Display a message if no blogs are found after a search or filtering
-    const noBlogsFound = filteredBlogs.length === 0;
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900 transition-all duration-300">
@@ -82,19 +77,20 @@ const Home = () => {
 
                 {/* Blog Cards Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {noBlogsFound ? (
-                        // Display a message if no blogs are found
-                        <div className="text-center col-span-full text-gray-600 dark:text-gray-400">
-                            No blogs found.
-                        </div>
-                    ) : (
-                        filteredBlogs.map((blog) => (
+                    {blogs.length > 0 ? (
+                        // Render a BlogCard for each blog in the list
+                        blogs.map((blog) => (
                             <BlogCard
                                 key={blog._id}
                                 blog={blog}
                                 className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg dark:shadow-xl transition-all duration-300"
                             />
                         ))
+                    ) : (
+                        // Display a message if no blogs are available
+                        <div className="text-center col-span-full text-gray-600 dark:text-gray-400">
+                            No blogs available.
+                        </div>
                     )}
                 </div>
             </div>
