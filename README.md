@@ -1,4 +1,4 @@
-# MERN Blog Application 🌐
+# INFINITY Blog Application 🌐
 
 A simple and powerful blog application built with the MERN stack, enabling users to create, read, update, and delete blog posts, with additional features like image uploads and filtering.
 
