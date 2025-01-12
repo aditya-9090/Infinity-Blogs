@@ -29,7 +29,7 @@ Follow the steps below to set up the project on your local machine:
 ### 1. Clone the Repository
    - Open your terminal and run:
      ```bash
-     git clone https://github.com/AdityaPatil/blog-app.git
+     git clone https://github.com/aditya-9090/Infinity-Blogs.git
      cd blog-app
      ```
 
